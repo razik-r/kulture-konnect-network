@@ -120,3 +120,39 @@ from properties where slug = 'sea-breeze-homestay';
 insert into rooms (property_id, name, room_type, price, max_guests, amenities)
 select id, 'The Grove Room', 'Double', 2200, 3, '["AC", "Attached bathroom", "Private balcony"]'
 from properties where slug = 'palm-grove-stay';
+
+-- ============================================================
+-- Storage
+-- Property cover photos are uploaded by authenticated staff and publicly
+-- readable so guest-facing property cards can display them.
+-- ============================================================
+
+insert into storage.buckets (id, name, public)
+values ('property-photos', 'property-photos', true)
+on conflict (id) do update set public = excluded.public;
+
+drop policy if exists "Property photos are publicly readable" on storage.objects;
+drop policy if exists "Only staff can upload property photos" on storage.objects;
+drop policy if exists "Only staff can update property photos" on storage.objects;
+drop policy if exists "Only staff can delete property photos" on storage.objects;
+
+create policy "Property photos are publicly readable" on storage.objects
+  for select using (bucket_id = 'property-photos');
+
+create policy "Only staff can upload property photos" on storage.objects
+  for insert with check (
+    bucket_id = 'property-photos'
+    and auth.role() = 'authenticated'
+  );
+
+create policy "Only staff can update property photos" on storage.objects
+  for update using (
+    bucket_id = 'property-photos'
+    and auth.role() = 'authenticated'
+  );
+
+create policy "Only staff can delete property photos" on storage.objects
+  for delete using (
+    bucket_id = 'property-photos'
+    and auth.role() = 'authenticated'
+  );

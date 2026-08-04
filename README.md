@@ -17,7 +17,8 @@ Scope matches the MVP (P0) section of the PRD — nothing else is built in yet o
 
 1. Create a project at [supabase.com](https://supabase.com).
 2. In the SQL Editor, run `supabase/schema.sql`. This creates the tables, RLS
-   policies, and a couple of seed properties/rooms you can delete later.
+   policies, the `property-photos` storage bucket for cover image uploads, and
+   a couple of seed properties/rooms you can delete later.
 3. In **Authentication → Users**, manually create one login per staff member
    (email + password). There's no public sign-up — that's intentional, since
    anyone logged in can create bookings and block rooms.

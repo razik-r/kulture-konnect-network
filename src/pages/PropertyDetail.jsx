@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 import BookingForm from "../components/BookingForm";
 
-export default function PropertyDetail() {
+export default function PropertyDetail({ canBook = true}) {
   const { slug } = useParams();
   const [property, setProperty] = useState(null);
   const [rooms, setRooms] = useState([]);
@@ -81,7 +81,7 @@ export default function PropertyDetail() {
       </div>
 
       <div className="mt-5 grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div className="md:col-span-2">
+        <div className={canBook ? "md:col-span-2" : "md:col-span-3"}>
           <h1 className="font-serif text-2xl text-stone-800">{property.name}</h1>
           <p className="text-sm text-stone-500 mt-1">
             {property.area}
@@ -111,13 +111,15 @@ export default function PropertyDetail() {
           </div>
         </div>
 
-        <div>
-          {rooms.length > 0 ? (
-            <BookingForm property={property} rooms={rooms} roomBlocks={roomBlocks} onBooked={load} />
-          ) : (
-            <p className="text-stone-400 text-sm">No rooms added for this property yet.</p>
-          )}
-        </div>
+        {canBook && (
+          <div>
+            {rooms.length > 0 ? (
+              <BookingForm property={property} rooms={rooms} roomBlocks={roomBlocks} onBooked={load} />
+            ) : (
+              <p className="text-stone-400 text-sm">No rooms added for this property yet.</p>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

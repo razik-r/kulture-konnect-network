@@ -32,12 +32,18 @@ export default function PropertyList() {
     return <p className="text-stone-500 text-sm">No partner properties added yet — add one in Admin.</p>;
 
   return (
-    <div>
-      <h1 className="font-serif text-2xl text-stone-800 mb-1">Partner properties</h1>
-      <p className="text-stone-500 text-sm mb-6">
-        Kulture Konnect is full — here's what's available nearby.
-      </p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    <div className="space-y-8">
+      <section className="rounded-[20px] border border-stone-200 bg-white px-6 py-8 shadow-sm">
+        <div className="max-w-2xl">
+          <p className="text-[11px] uppercase tracking-[0.32em] text-stone-400 mb-3">Partner stays</p>
+          <h1 className="font-serif text-4xl text-stone-900 mb-4">Partner properties</h1>
+          <p className="text-stone-600 text-base leading-7">
+            Kulture Konnect is full — here’s what’s available nearby. Browse trusted partner stays that are ready for your guests.
+          </p>
+        </div>
+      </section>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
         {properties.map((property) => (
           <PropertyCard
             key={property.id}
