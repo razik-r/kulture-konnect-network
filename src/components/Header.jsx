@@ -3,6 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 export default function Header({ isAdminArea = false, onSignOut }) {
   const location = useLocation();
 
+  const adminPathEnabled = import.meta.env.DEV || import.meta.env.VITE_ALLOW_ADMIN_PATH === "true";
+
   const linkClass = (path) =>
     `text-sm transition-colors ${
       location.pathname === path ? "text-stone-900 font-medium" : "text-stone-500 hover:text-stone-800"

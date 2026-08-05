@@ -70,6 +70,30 @@ npm run build
 
 Set the same two `VITE_SUPABASE_*` env vars in your host's dashboard.
 
+If you'd like to serve the admin UI under the same domain (for example
+`https://example.com/admin`) instead of using an `admin.` subdomain, set
+the following environment variable in your hosting dashboard:
+
+- `VITE_ALLOW_ADMIN_PATH=true`
+
+When `VITE_ALLOW_ADMIN_PATH` is `true` the app will treat any path starting
+with `/admin` as the admin area. This is enabled by default during local
+development.
+
+Netlify-specific notes
+---------------------
+
+- To enable the admin UI under the same domain (`https://your-domain.com/admin`):
+  1. In your Netlify site, go to **Site settings → Build & deploy → Environment** and add `VITE_ALLOW_ADMIN_PATH=true`.
+  2. Redeploy the site. No DNS changes are required for the `/admin` path.
+
+- To serve admin on an `admin.` subdomain (`https://admin.your-domain.com`):
+  1. In Netlify, go to **Domain management → Add custom domain** and add `admin.your-domain.com` as a domain alias for your site.
+  2. In your DNS provider, create a `CNAME` record for `admin` pointing to your Netlify domain (e.g. `your-site.netlify.app`).
+  3. Wait for DNS propagation and confirm the domain in Netlify.
+
+If you prefer to keep a single site on Netlify and switch behavior via environment variables, the `/admin` path approach is simplest.
+
 ## What's deliberately not here yet
 
 Per the PRD, these are real future phases, not oversights:
