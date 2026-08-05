@@ -21,8 +21,8 @@ export default function Header({ isAdminArea = false, onSignOut }) {
          
           <Link to="/" className="font-serif text-[18px] text-stone-800 leading-tight">
            <div className="flex flex-row justify-center items-center gap-2">
- <img src="/logo.png" alt="Kulture Konnect" className="h-6 w-auto mb-1" />
-          <p className="text-[10px] tracking-[0.32em] uppercase text-stone-400">Kulture Konnect</p>
+ <img src="/logo.png" alt="Kulture Konnect" className="h-10 w-auto mb-1" />
+          <p className="text-[14px] tracking-[0.32em] uppercase text-stone-400">Kulture Konnect</p>
           
           </div>
            

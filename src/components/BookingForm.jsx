@@ -131,7 +131,7 @@ export default function BookingForm({ property, rooms, roomBlocks, onBooked }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="border border-stone-200 rounded-lg p-5 space-y-4">
+    <form onSubmit={handleSubmit} className="border border-stone-200 bg-[#ffff] rounded-lg p-5 space-y-4">
       <h2 className="font-serif text-lg text-stone-800">Book a room</h2>
 
       <div className="grid grid-cols-2 gap-3">
@@ -236,7 +236,7 @@ export default function BookingForm({ property, rooms, roomBlocks, onBooked }) {
       <button
         type="submit"
         disabled={submitting}
-        className="w-full bg-stone-800 text-white rounded-md py-2.5 font-medium hover:bg-stone-700 disabled:opacity-50 transition-colors"
+        className="w-full bg-stone-800 cursor-pointer text-white rounded-md py-2.5 font-medium hover:bg-stone-700 disabled:opacity-50 transition-colors"
       >
         {submitting ? "Confirming…" : "Confirm booking"}
       </button>

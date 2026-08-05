@@ -11,34 +11,98 @@ export default function App() {
   const { session, loading, signOut } = useAuth();
   const adminArea = isAdminHost();
 
+  // Admin loading screen
   if (adminArea && loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-stone-50">
-        <p className="text-stone-400 text-sm">Loading...</p>
+      <div
+        className="min-h-screen flex items-center justify-center bg-stone-50 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: "url('/bg.png')",
+        }}
+      >
+        <p className="text-stone-500 text-sm">Loading...</p>
       </div>
     );
   }
 
+  // Admin login
   if (adminArea && !session) {
     return <Login />;
   }
 
   return (
-    <div className="min-h-screen bg-[#fbfaf8]">
+    <div
+      className="relative min-h-screen bg-stone-50"
+     
+    >
       
-      <Header isAdminArea={adminArea} onSignOut={signOut} />
-      <main className="mx-auto max-w-[992px] px-4 py-9 sm:px-0">
+
+
+        <div
+      className="fixed inset-0 bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage: "url('/bg.png')",
+      }}
+    />
+
+    {/* Background-only overlay */}
+    <div className="fixed inset-0 bg-white/50" />
+
+     <div className="
+     relative z-10">
+      <Header
+        isAdminArea={adminArea}
+        onSignOut={signOut}
+      />
+
+      <main className="mx-auto max-w-[992px] px-4 py-9 sm:px-6 lg:px-0">
         <Routes>
-          <Route path="/" element={adminArea ? <Admin /> : <PropertyList />} />
-          <Route path="/properties" element={adminArea ? <PropertyList /> : <Navigate to="/" replace />} />
-       <Route
-  path="/stays/:slug"
-  element={<PropertyDetail />}
-/>
-          <Route path="/admin" element={adminArea ? <Admin /> : <Navigate to="/" replace />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
+          {/* Home */}
+          <Route
+            path="/"
+            element={
+              adminArea ? <Admin /> : <PropertyList />
+            }
+          />
+
+          {/* Property list */}
+          <Route
+            path="/properties"
+            element={
+              adminArea ? (
+                <PropertyList />
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
+
+          {/* Stay detail - booking available on both */}
+          <Route
+            path="/stays/:slug"
+            element={<PropertyDetail />}
+          />
+
+          {/* Admin */}
+          <Route
+            path="/admin"
+            element={
+              adminArea ? (
+                <Admin />
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
+
+          {/* Unknown route */}
+          <Route
+            path="*"
+            element={<Navigate to="/" replace />}
+          />
         </Routes>
       </main>
+      </div>
     </div>
   );
 }
